@@ -11,4 +11,4 @@ $classes = "bg-white/10 rounded-xl hover:bg-white/20 transition-colors duration-
     }
     
 @endphp
-<a href="/tag/{{strtolower($tag->name)}}" class="{{$classes}}">{{ $tag->name }}</a>
+<a href="/tags/{{$tag->name}}" class="{{$classes}}">{{ $tag->name }}</a>

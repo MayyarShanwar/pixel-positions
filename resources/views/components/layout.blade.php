@@ -16,7 +16,7 @@
 
             {{-- Logo --}}
             <div>
-                <a href="">
+                <a href="/">
                     <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="">
                 </a>
             </div>
@@ -42,6 +42,9 @@
                     </form>
                 </div>
 
+                @if (!Request::is('jobs/create'))
+                    
+                
                 <div class="fixed bottom-6 right-4 flex items-center">
                     <a href="/jobs/create"
                         class="bg-blue-600 text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">
@@ -49,6 +52,7 @@
                         Create a Job
                     </a>
                 </div>
+                @endif
             @endauth
 
             @guest
