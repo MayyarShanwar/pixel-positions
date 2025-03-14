@@ -27,7 +27,7 @@
 
         <section>
             <x-heading>Tags</x-heading>
-            <div class="mt-6 space-x-1">
+            <div class="mt-6 space-x-1 flex flex-wrap gap-2">
                 @foreach($tags as $tag)
                     <x-tag :$tag/>
                 @endforeach

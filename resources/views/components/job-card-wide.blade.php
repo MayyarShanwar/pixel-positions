@@ -1,7 +1,8 @@
 @props(['job'])
 <div class="p-5 group border border-transparent bg-white/5 flex rounded-xl items-center flex space-x-4 hover:border hover:border-blue-700 transition-colors duration-300">
     <div>
-        <x-employer-logo/>
+        <x-employer-logo :employer="$job->employer" :width='150'/>
+
 </div>
 <div class=" flex justify-between w-full h-full self-start">
     <div class="ml-6">

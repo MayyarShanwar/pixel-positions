@@ -49,7 +49,7 @@ class RegisterController extends Controller
         $user = User::create($userAttr);
 
         //store the logo
-        $logoPath = $request->logo->store('logos');
+        $logoPath = $request->logo->store('logos','public');
 
         //create the employer and attach it to the created user
         $user->employer()->create([
