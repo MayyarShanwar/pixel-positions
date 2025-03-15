@@ -67,9 +67,9 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Job $job)
+    public function show()
     {
-        //
+        return view('jobs.show');
     }
 
     /**

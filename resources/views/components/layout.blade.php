@@ -38,20 +38,23 @@
                         @method('DELETE')
                         <button
                             class="bg-blue-600 cursor-pointer text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-red-800 transition duration-300 ease-in-out"
-                            type="submit">Log out</button>
+                            type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2a9.99 9.99 0 0 1 8 4h-2.71a8 8 0 1 0 .001 12h2.71A9.99 9.99 0 0 1 12 22m7-6v-3h-8v-2h8V8l5 4z" />
+                            </svg> &nbsp;
+                            Log out</button>
                     </form>
                 </div>
 
                 @if (!Request::is('jobs/create'))
-                    
-                
-                <div class="fixed bottom-6 right-4 flex items-center">
-                    <a href="/jobs/create"
-                        class="bg-blue-600 text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">
-                        <span class="text-xl mr-2">+</span>
-                        Create a Job
-                    </a>
-                </div>
+                    <div class="fixed bottom-6 right-4 flex items-center">
+                        <a href="/jobs/create"
+                            class="bg-blue-600 text-white font-medium rounded-md px-4 py-2 flex items-center justify-center hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">
+                            <span class="text-xl mr-2">+</span>
+                            Create a Job
+                        </a>
+                    </div>
                 @endif
             @endauth
 

@@ -14,6 +14,8 @@ Route::get('/tags/{tag:name}', TagController::class);
 Route::middleware('auth')->group(function () {
 Route::get('/jobs/create',[ JobController::class,'create']);
 Route::post('/jobs',[ JobController::class,'store']);
+Route::get('/jobs/show',[ JobController::class,'show']);
+
 });
 
 
