@@ -14,8 +14,10 @@ Route::get('/tags/{tag:name}', TagController::class);
 Route::middleware('auth')->group(function () {
 Route::get('/jobs/create',[ JobController::class,'create']);
 Route::post('/jobs',[ JobController::class,'store']);
-Route::get('/jobs/show',[ JobController::class,'show']);
-
+Route::get('/jobs/{job}',[JobController::class,'show']);
+Route::get('/jobs/{job}/edit',[JobController::class,'edit']);
+Route::patch('/jobs/{job}',[JobController::class,'update']);
+Route::delete('/jobs/{job}',[JobController::class,'destroy']);
 });
 
 

@@ -19,11 +19,11 @@ class JobController extends Controller
     public function index()
     {
         // $featuredJobs = Job::where('featured',false)->limit(3)->get();
-        $jobs= Job::latest()->with(['employer','tags'])->get()->groupBy('featured');
+        $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
         $tags = Tag::all();
 
-        return view('jobs.index',[
-            'jobs'=> $jobs[0],
+        return view('jobs.index', [
+            'jobs' => $jobs[0],
             'tags' => $tags,
             'featuredJobs' => $jobs[1],
         ]);
@@ -46,17 +46,17 @@ class JobController extends Controller
             'title' => ['required'],
             'salary' => ['required'],
             'location' => ['required'],
-            'schedule' => ['required',Rule::in(['Full Time','Part Time'])],
+            'schedule' => ['required', Rule::in(['Full Time', 'Part Time'])],
             'url' => ['required'],
             'tags' => ['nullable'],
         ]);
 
         $jobAttr['featured'] = $request->has('featured');
 
-         $job = Auth::user()->employer->job()->create(Arr::except($jobAttr,'tags'));
+        $job = Auth::user()->employer->job()->create(Arr::except($jobAttr, 'tags'));
 
         if ($jobAttr['tags']) {
-            foreach (explode(',',$jobAttr['tags']) as $tag) {
+            foreach (explode(',', $jobAttr['tags']) as $tag) {
                 $job->tag($tag);
             }
         }
@@ -67,9 +67,9 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Job $job)
     {
-        return view('jobs.show');
+        return view('jobs.show', ['job' => $job]);
     }
 
     /**
@@ -77,15 +77,45 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        return view('jobs.edit', ['job' => $job]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Job $job)
     {
-        //
+
+        request()->validate([
+            'title' => ['required'],
+            'salary' => ['required'],
+            'location' => ['required'],
+            'schedule' => ['required'],
+            'url' => ['required'],
+            'tags' => ['nullable'],
+        ]);
+        $job->update([
+            'title' => request('title'),
+            'salary' => request('salary'),
+            'location' => request('location'),
+            'schedule' => request('schedule'),
+            'url' => request('url'),
+        ]);
+
+        $count = 0;
+        foreach (explode(',', request('tags')) as $tag) {
+            foreach ($job->tags as $tag0) {
+                if ($tag0['name'] == $tag) {
+                    $count += 1;
+                }
+            }
+            if ($count == 0) {
+                $job->tag($tag);
+            }
+            $count = 0;
+
+        }
+        return redirect('jobs/' . $job->id);
     }
 
     /**
@@ -93,6 +123,7 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $job->delete();
+        return redirect('/');
     }
 }
