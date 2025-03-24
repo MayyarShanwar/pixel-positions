@@ -32,6 +32,7 @@
     foreach ($job->tags as $tag) {
         $tagees .= $tag->name.',';
     }
+    $tagees = Str::substr($tagees, 0, Str::length($tagees)-1)
     @endphp
     <x-forms.input label='Tags (Seperate with comma ,)' name='tags'  value='{{$tagees}}'
     />

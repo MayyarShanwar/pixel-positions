@@ -40,9 +40,15 @@ class Job extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function tag(string $name){
+    public function tag(string $name)
+    {
         $tag = Tag::firstOrCreate(['name' => $name]);
-        $this->tags()->attach($tag);
+        if(!$this->tags->contains($tag)){
+        $this->tags()->attach($tag);}
     }
 
+    public function deAttach(Tag $tag)
+    {
+        $this->tags()->detach($tag->id);
+    }
 }

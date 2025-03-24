@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use App\Http\Requests\StoreJobRequest;
-use App\Http\Requests\UpdateJobRequest;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -100,21 +99,24 @@ class JobController extends Controller
             'location' => request('location'),
             'schedule' => request('schedule'),
             'url' => request('url'),
+            'featured' => request()->has('featured'),
         ]);
 
-        $count = 0;
-        foreach (explode(',', request('tags')) as $tag) {
-            foreach ($job->tags as $tag0) {
-                if ($tag0['name'] == $tag) {
-                    $count += 1;
-                }
+        // dd(request('tags'));
+        if ($job['tags']) {
+            foreach (explode(',', request('tags')) as $tag) {
+                
+                    $job->tag($tag);
+                
             }
-            if ($count == 0) {
-                $job->tag($tag);
+        }
+        foreach ($job->tags as $tag) {
+            if (!Str::contains(request('tags'), $tag->name)) {
+                $job->deAttach($tag);
             }
-            $count = 0;
 
         }
+
         return redirect('jobs/' . $job->id);
     }
 
