@@ -51,4 +51,9 @@ class Job extends Model
     {
         $this->tags()->detach($tag->id);
     }
+
+    public function deAttachAll()
+    {
+        $this->tags()->detach();
+    }
 }

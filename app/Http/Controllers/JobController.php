@@ -103,19 +103,21 @@ class JobController extends Controller
         ]);
 
         // dd(request('tags'));
-        if ($job['tags']) {
+        if (!request('tags')) {
+           $job->deAttachAll();
+        } else {
             foreach (explode(',', request('tags')) as $tag) {
-                
-                    $job->tag($tag);
-                
-            }
-        }
-        foreach ($job->tags as $tag) {
-            if (!Str::contains(request('tags'), $tag->name)) {
-                $job->deAttach($tag);
-            }
 
+                $job->tag($tag);
+            }
+            foreach ($job->tags as $tag) {
+                if (!Str::contains(request('tags'), $tag->name)) {
+                    $job->deAttach($tag);
+                }
+            }
         }
+
+
 
         return redirect('jobs/' . $job->id);
     }
