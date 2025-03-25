@@ -37,7 +37,13 @@ class JobPolicy
      */
     public function update(User $user, Job $job): bool
     {
-        return false;
+        if($job->employer->user_id==$user->id){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
 
     /**

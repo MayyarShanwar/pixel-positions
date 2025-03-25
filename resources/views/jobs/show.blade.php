@@ -16,6 +16,9 @@
         </div>
     </div>
 
+    @can('update',$job)
+        
+    
     <div class="flex justify-center mt-7">
         <div class="flex gap-5 justify-center w-1/3">
             <a href="/jobs/{{$job->id}}/edit"
@@ -40,5 +43,6 @@
         </form>
         </div>
     </div>
+    @endcan
 
 </x-layout>
